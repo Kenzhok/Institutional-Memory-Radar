@@ -1,0 +1,237 @@
+@import "tailwindcss";
+
+/* ─── Google Fonts ─────────────────────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+/* ─── Tactical Dossier Design Tokens ──────────────────────────────────────── */
+@theme {
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+
+  --color-d-bg:         #FAFAF8;
+  --color-d-bg-2:       #F3F3EF;
+  --color-d-ink:        #111827;
+  --color-d-ink-2:      #374151;
+  --color-d-ink-3:      #6B7280;
+  --color-d-line:       #D1D5DB;
+  --color-d-line-2:     #9CA3AF;
+
+  --color-d-yellow:     #FEF08A;
+  --color-d-yellow-dk:  #CA8A04;
+  --color-d-red:        #EF4444;
+  --color-d-red-bg:     #FEF2F2;
+  --color-d-amber:      #F59E0B;
+  --color-d-amber-bg:   #FFFBEB;
+  --color-d-emerald:    #10B981;
+  --color-d-emerald-bg: #ECFDF5;
+}
+
+/* ─── Reset ────────────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 1.6;
+  color: #111827;
+
+  /* Very faint engineering grid — texture only, no competition */
+  background-color: #FAFAF8;
+  background-image:
+    linear-gradient(rgba(15, 23, 42, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(15, 23, 42, 0.04) 1px, transparent 1px);
+  background-size: 20px 20px;
+  min-height: 100vh;
+}
+
+/* ─── Scrollbar ────────────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: #F3F3EF; }
+::-webkit-scrollbar-thumb { background: #D1D5DB; }
+::-webkit-scrollbar-thumb:hover { background: #9CA3AF; }
+
+/* ─── System tag (monospace label chip) ────────────────────────────────────── */
+.sys-tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 6px;
+  border: 1px solid currentColor;
+  line-height: 1.5;
+}
+
+.sys-tag--red     { color: #EF4444; border-color: #FECACA; background: #FEF2F2; }
+.sys-tag--amber   { color: #B45309; border-color: #FDE68A; background: #FFFBEB; }
+.sys-tag--emerald { color: #065F46; border-color: #A7F3D0; background: #ECFDF5; }
+.sys-tag--ink     { color: #374151; border-color: #D1D5DB; background: #F9FAFB; }
+.sys-tag--yellow  { color: #111827; border-color: #FEF08A; background: #FEF08A; }
+
+/* ─── Dossier card ─────────────────────────────────────────────────────────── */
+.dossier-card {
+  background: #FFFFFF;
+  border: 1px solid #D1D5DB;
+  border-radius: 0;
+}
+
+.dossier-card__header {
+  padding: 10px 16px;
+  border-bottom: 1px solid #D1D5DB;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: #F9FAFB;
+}
+
+/* ─── Empty state card ─────────────────────────────────────────────────────── */
+.empty-state {
+  border: 1px dashed #D1D5DB;
+  background: #FAFAF8;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 56px 32px;
+  min-height: 240px;
+}
+
+/* ─── Input elements ───────────────────────────────────────────────────────── */
+.dossier-textarea {
+  width: 100%;
+  background: #FFFFFF;
+  border: 1px solid #D1D5DB;
+  border-radius: 0;
+  padding: 10px 12px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: #111827;
+  line-height: 1.7;
+  resize: none;
+  outline: none;
+  transition: border-color 0.1s;
+  overflow-y: auto;
+}
+.dossier-textarea::placeholder { color: #9CA3AF; }
+.dossier-textarea:focus { border-color: #374151; }
+
+/* ─── Buttons ──────────────────────────────────────────────────────────────── */
+.dossier-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 16px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  border: 1px solid #111827;
+  border-radius: 0;
+  background: #111827;
+  color: #FAFAF8;
+  cursor: pointer;
+  width: 100%;
+  transition: background 0.1s;
+}
+.dossier-btn:hover:not(:disabled) { background: #374151; border-color: #374151; }
+.dossier-btn:disabled {
+  background: #F3F4F6;
+  border-color: #D1D5DB;
+  color: #9CA3AF;
+  cursor: not-allowed;
+}
+
+.dossier-btn--ghost {
+  background: #EFF6FF;
+  border-color: #BFDBFE;
+  color: #1D4ED8;
+  width: 100%;
+}
+.dossier-btn--ghost:hover:not(:disabled) { background: #DBEAFE; border-color: #93C5FD; }
+
+.dossier-btn--emerald {
+  background: #065F46;
+  border-color: #065F46;
+  color: #FFFFFF;
+}
+.dossier-btn--emerald:hover:not(:disabled) { background: #047857; border-color: #047857; }
+
+/* ─── Section label ────────────────────────────────────────────────────────── */
+.section-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #6B7280;
+}
+
+/* ─── Accent left borders ──────────────────────────────────────────────────── */
+.accent-left--yellow  { border-left: 3px solid #FEF08A; }
+.accent-left--red     { border-left: 3px solid #EF4444; }
+.accent-left--amber   { border-left: 3px solid #F59E0B; }
+.accent-left--emerald { border-left: 3px solid #10B981; }
+.accent-left--ink     { border-left: 3px solid #374151; }
+
+/* ─── Timeline node ────────────────────────────────────────────────────────── */
+.timeline-node {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid currentColor;
+  background: #FFFFFF;
+  flex-shrink: 0;
+}
+
+/* ─── Checkbox ─────────────────────────────────────────────────────────────── */
+.dossier-checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  border: 1px solid #374151;
+  border-radius: 0;
+  background: #FFFFFF;
+  cursor: pointer;
+  flex-shrink: 0;
+  position: relative;
+  margin-top: 1px;
+}
+.dossier-checkbox:checked { background: #111827; border-color: #111827; }
+.dossier-checkbox:checked::after {
+  content: '';
+  position: absolute;
+  left: 3px; top: 0px;
+  width: 5px; height: 9px;
+  border: 2px solid #FAFAF8;
+  border-top: none; border-left: none;
+  transform: rotate(45deg);
+}
+
+/* ─── Audit row strike-through ─────────────────────────────────────────────── */
+.audit-row--done { opacity: 0.4; }
+.audit-row--done .audit-row__text { text-decoration: line-through; color: #9CA3AF; }
+
+/* ─── Skeleton shimmer ─────────────────────────────────────────────────────── */
+@keyframes shimmer {
+  0%   { background-position: -400px 0; }
+  100% { background-position:  400px 0; }
+}
+.skeleton {
+  background: linear-gradient(90deg, #F3F3EF 25%, #E5E7EB 50%, #F3F3EF 75%);
+  background-size: 800px 100%;
+  animation: shimmer 1.4s infinite linear;
+}
